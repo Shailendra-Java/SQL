@@ -1,0 +1,46 @@
+use hotel;
+go
+--
+DROP TABLE Customer;
+DECLARE @Doc int
+DECLARE @XmlDoc nvarchar(1000)
+SET @XmlDoc = N'
+<ROOT>
+	<Customer CustId="JH01" Name="John Ketter">
+		<Order OrdId="1001" CustId="JH01" OrdDate="2018-09-29">
+			
+			<OrdDetail ProdId="11" Qty="12"/>
+			<OrdDetail ProdId="22" Qty="10"/>
+		</Order>
+	</Customer>
+	<Customer CustId="SG01" Name="Steve Gonzlez">
+		<Order OrdId="1002" CustId="SG01" OrdDate="2017-09-29">
+			
+			<OrdDetail ProdId="32" Qty="5"/>
+		</Order>
+	</Customer>
+</ROOT>
+'
+EXEC sp_xml_preparedocument @Doc OUTPUT, @XmlDoc
+
+SELECT * INTO Customer
+FROM OPENXML(@Doc, '/ROOT/Customer/Order/OrdDetail',1)
+WITH (CustId varchar(10) '../../@CustId', 
+	Name varchar(20) '../../@Name',
+	OrdId int '../@OrdId', 
+	OrdDate DateTime '../@OrdDate',
+	ProdId int '@ProdId', Qty int '@Qty')
+
+EXEC sp_xml_removedocument @Doc
+
+SELECT * from Customer;
+
+CREATE TABLE Data
+(
+	DataId int,
+	Descr XML
+)
+
+INSERT INTO Data VALUES(101, convert(xml,'<Detail><data name="Abc" Qty = "12"/></Detail>'))
+Select * from Data;
+
