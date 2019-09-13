@@ -31,3 +31,11 @@ LOG ON
 	MAXSIZE = 10MB,
 	FILEGROWTH = 1MB
 )
+
+--Renaming a Database
+sp_renamedb Old_Database_Name, New_Database_Name
+
+sp_renamedb MyDb, Ecommerce
+
+--Dropping a Database
+drop Database database_name
