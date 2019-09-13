@@ -14,6 +14,9 @@ CREATE TABLE Student.StudentRecord
 	FOREIGN KEY(Course_Id) references Student.Course(Course_id)	
 )
 
+-- To view the table structure
+sp_help Student.StudentRecord
+
 CREATE TABLE Student.Course
 (
 	Course_Id int IDENTITY(10,1) PRIMARY KEY,
