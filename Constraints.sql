@@ -2,12 +2,12 @@
 -- Domain integrity: Ensures that only a valid range of values is stored in a column.
 -- Referential integrity: Ensures that the values of the foreign key match the value of the corresponding primary key.
 -- User-defined integrity: Refers to a set of rules specified by a user, which do not belong to the entity, domain, 
-   and referential integrity categories.
-   
+-- and referential integrity categories.
+/*   
 A constraint can be created by using either of the following statements:
  CREATE TABLE statement
  ALTER TABLE statement
-
+*/
 -- 1) Primary Key Constraint
 CREATE TABLE Test.Project 
 ( 
